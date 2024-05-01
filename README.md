@@ -3,7 +3,7 @@
 Thi is not production ready. It's simmple REST api express application using drizzleorm. Basic auth has been implemented and a CRUD crypto endpoints have been added. This use postgreSQL which runs on docker locally.
 
 - Need DATABASE URL on .env to point to local postgreSQL
-- Data base url should look like this
+- Data base url should look like this. set this inside .env folder as DATABASE_URL
   `postgres://username:password@localhost:5432/databaseName`
 - pull postgres image:
   `docker pull postgres`
