@@ -1,0 +1,1 @@
+ALTER TABLE "crypto" ADD COLUMN "price" numeric(5, 2);

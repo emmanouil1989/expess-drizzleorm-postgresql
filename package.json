@@ -1,0 +1,44 @@
+{
+  "name": "ts-crypto",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "rimraf dist && npx tsc",
+    "prestart": "npm run build",
+    "start": "node dist/index.js",
+    "preserve": "npm run build",
+    "serve": "concurrently \"npx tsc -w\" \"nodemon dist/index.js\"",
+    "generate-migration": "drizzle-kit generate:pg --out src/db/migrations --schema src/db/index.ts",
+    "migrate": "ts-node src/db/migrate"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@types/compression": "^1.7.5",
+    "@types/cookie-parser": "^1.4.7",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.12.7",
+    "@types/pg": "^8.11.5",
+    "body-parser": "^1.20.2",
+    "compression": "^1.7.4",
+    "concurrently": "^8.2.2",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "drizzle-kit": "^0.20.17",
+    "drizzle-orm": "^0.30.9",
+    "express": "^4.19.2",
+    "express-validator": "^7.0.1",
+    "pg": "^8.11.5",
+    "rimraf": "^5.0.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  },
+  "devDependencies": {
+    "dotenv": "^16.4.5",
+    "nodemod": "^3.0.6"
+  }
+}

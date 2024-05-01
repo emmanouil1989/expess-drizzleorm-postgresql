@@ -1,0 +1,55 @@
+{
+  "version": "5",
+  "dialect": "pg",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1714046874070,
+      "tag": "0000_dapper_sway",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1714059075517,
+      "tag": "0001_mushy_kate_bishop",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1714062885795,
+      "tag": "0002_shiny_captain_britain",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1714130426506,
+      "tag": "0003_huge_synch",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1714205939312,
+      "tag": "0004_good_bastion",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1714206493225,
+      "tag": "0005_fast_dreadnoughts",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1714206517276,
+      "tag": "0006_eager_nitro",
+      "breakpoints": true
+    }
+  ]
+}
