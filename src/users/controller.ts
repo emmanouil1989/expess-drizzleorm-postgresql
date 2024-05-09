@@ -62,7 +62,7 @@ export const login = async (
 
     if (response.length === 0) {
       return res
-        .status(400)
+        .status(403)
         .json({ error: "There is a problem with email or password" });
     }
 
