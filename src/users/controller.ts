@@ -6,6 +6,7 @@ import {
   updateByUserId,
   getUsers,
   getUserBySessionToken,
+  getUserById,
 } from "./services";
 import { authentication, random } from "./util";
 
@@ -127,6 +128,22 @@ export const logout = async (req: Request, res: Response) => {
     res.clearCookie(SESSION_TOKEN);
 
     res.status(200).send("Logout successfullly");
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+export const userById = async (req: Request, res: Response) => {
+  try {
+    const resourceId = parseInt(req.params.userId);
+    const user = await getUserById(resourceId);
+
+    if (!user) {
+      res.status(404).json({ error: "User not Found" });
+    }
+
+    res.status(200).json({ user });
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "Internal server error" });

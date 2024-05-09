@@ -23,6 +23,16 @@ export const getUserBySessionToken = async (sessionToken: string) => {
     .where(eq(userSchema.sessionToken, sessionToken));
 };
 
+export const getUserById = async (userId: number) => {
+  return await db
+    .select({
+      id: userSchema.id,
+      userName: userSchema.username,
+      email: userSchema.email,
+    })
+    .from(userSchema)
+    .where(eq(userSchema.id, userId));
+};
 export const createUser = async (user: NewUser) => {
   return await db
     .insert(userSchema)
