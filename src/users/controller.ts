@@ -85,6 +85,7 @@ export const login = async (
       domain: DOMAIN,
       path: "/",
       expires: new Date(Date.now() + 99999),
+      httpOnly: true,
     });
     res.status(200).json(updateduser);
   } catch (error) {
