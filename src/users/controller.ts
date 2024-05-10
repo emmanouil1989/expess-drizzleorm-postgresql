@@ -77,7 +77,7 @@ export const login = async (
 
     user.sessionToken = authentication(random(), user.password);
 
-    const updateduser = await updateByUserId(user.id, {
+    const updateduserList = await updateByUserId(user.id, {
       ...user,
     });
 
@@ -87,7 +87,9 @@ export const login = async (
       expires: new Date(Date.now() + 99999),
       httpOnly: true,
     });
-    res.status(200).json(updateduser);
+    res.status(200).json({
+      user: updateduserList[0],
+    });
   } catch (error) {
     console.log(error);
 
