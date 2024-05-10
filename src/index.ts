@@ -10,7 +10,9 @@ import "dotenv/config";
 const app = express();
 
 const port = process.env.PORT || 4000;
-app.use(cors({ credentials: true }));
+// Get domain from env or use angular localhost
+const domain = process.env.DOMAIN || "http://localhost:4200";
+app.use(cors({ origin: domain, credentials: true }));
 app.use(compression());
 app.use(cookieParser());
 app.use(bodyParser.json());
