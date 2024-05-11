@@ -32,6 +32,7 @@
     "drizzle-orm": "^0.30.9",
     "express": "^4.19.2",
     "express-validator": "^7.0.1",
+    "moment-timezone": "^0.5.45",
     "pg": "^8.11.5",
     "rimraf": "^5.0.5",
     "ts-node": "^10.9.2",

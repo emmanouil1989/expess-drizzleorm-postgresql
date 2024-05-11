@@ -9,15 +9,14 @@ export const isAuthenticated = async (
 ) => {
   try {
     const sessionToken = req.cookies[SESSION_TOKEN];
-
     if (!sessionToken) {
-      return res.sendStatus(403);
+      return res.status(403).json({ msg: "Unauthorized" });
     }
 
     const result = await getUserBySessionToken(sessionToken);
 
     if (result.length === 0) {
-      return res.status(403);
+      return res.status(403).json({ msg: "Unauthorized" });
     }
 
     return next();

@@ -9,6 +9,7 @@ import {
   getUserById,
 } from "./services";
 import { authentication, random } from "./util";
+import moment from "moment-timezone";
 
 export const SESSION_TOKEN = "MY-SESSION-TOKEN";
 const DOMAIN = "localhost";
@@ -61,9 +62,7 @@ export const login = async (
     const response = await getUserByEmail(email);
 
     if (response.length === 0) {
-      return res
-        .status(403)
-        .json({ error: "There is a problem with email or password" });
+      return res.status(403).json({ msg: "Unauthorized" });
     }
 
     const user = response[0];
@@ -72,6 +71,7 @@ export const login = async (
     if (expectedHash !== user.password) {
       return res
         .status(403)
+        .json({ msg: "Unauthorized" })
         .json({ error: "There is a problem with email or password" });
     }
 
@@ -80,11 +80,11 @@ export const login = async (
     const updateduserList = await updateByUserId(user.id, {
       ...user,
     });
-
+    const expirationTime = moment().add(1, "day").tz("Europe/London").toDate();
     res.cookie(SESSION_TOKEN, user.sessionToken, {
       domain: DOMAIN,
       path: "/",
-      expires: new Date(Date.now() + 99999),
+      expires: expirationTime,
       httpOnly: true,
     });
     res.status(200).json({
@@ -127,10 +127,10 @@ export const logout = async (req: Request, res: Response) => {
       ...userBySessionToken,
       sessionToken: null,
     };
-    const updateUser = await updateByUserId(userBySessionToken.id, newUser);
+    await updateByUserId(userBySessionToken.id, newUser);
     res.clearCookie(SESSION_TOKEN);
 
-    res.status(200).send("Logout successfullly");
+    res.status(200).json({ msg: "Logout successfullly" });
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "Internal server error" });
@@ -147,6 +147,25 @@ export const userById = async (req: Request, res: Response) => {
     }
 
     res.status(200).json({ user });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+export const userBySessionToken = async (req: Request, res: Response) => {
+  try {
+    const sessionToken = req.cookies[SESSION_TOKEN];
+    const userList = await getUserBySessionToken(sessionToken);
+
+    const { id, email, username } = userList[0];
+    res.status(200).json({
+      user: {
+        id,
+        email,
+        username,
+      },
+    });
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "Internal server error" });
