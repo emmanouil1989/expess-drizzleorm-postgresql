@@ -10,6 +10,7 @@ import {
 } from "./services";
 import { authentication, random } from "./util";
 import moment from "moment-timezone";
+import moment from "moment-timezone";
 
 export const SESSION_TOKEN = "MY-SESSION-TOKEN";
 const DOMAIN = "localhost";
@@ -85,6 +86,7 @@ export const login = async (
       domain: DOMAIN,
       path: "/",
       expires: expirationTime,
+      expires: expirationTime,
       httpOnly: true,
     });
     res.status(200).json({
@@ -128,8 +130,10 @@ export const logout = async (req: Request, res: Response) => {
       sessionToken: null,
     };
     await updateByUserId(userBySessionToken.id, newUser);
+    await updateByUserId(userBySessionToken.id, newUser);
     res.clearCookie(SESSION_TOKEN);
 
+    res.status(200).json({ msg: "Logout successfullly" });
     res.status(200).json({ msg: "Logout successfullly" });
   } catch (error) {
     console.log(error);
@@ -147,6 +151,25 @@ export const userById = async (req: Request, res: Response) => {
     }
 
     res.status(200).json({ user });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+export const userBySessionToken = async (req: Request, res: Response) => {
+  try {
+    const sessionToken = req.cookies[SESSION_TOKEN];
+    const userList = await getUserBySessionToken(sessionToken);
+
+    const { id, email, username } = userList[0];
+    res.status(200).json({
+      user: {
+        id,
+        email,
+        username,
+      },
+    });
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "Internal server error" });
