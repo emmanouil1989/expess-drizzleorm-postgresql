@@ -113,14 +113,14 @@ export const getAllUsers = async (req: Request, res: Response) => {
 export const logout = async (req: Request, res: Response) => {
   try {
     const sessionToken = req.cookies[SESSION_TOKEN];
-    if (!sessionToken) {
-      return res.sendStatus(200);
+    if (sessionToken === undefined) {
+      return res.status(200).json({ msg: "Logout successfullly" });
     }
 
     const userArray = await getUserBySessionToken(sessionToken);
 
     if (userArray.length === 0) {
-      return res.status(200);
+      return res.status(200).json({ msg: "Logout successfullly" });
     }
     const userBySessionToken = userArray[0];
     const newUser = {
@@ -128,10 +128,8 @@ export const logout = async (req: Request, res: Response) => {
       sessionToken: null,
     };
     await updateByUserId(userBySessionToken.id, newUser);
-    await updateByUserId(userBySessionToken.id, newUser);
     res.clearCookie(SESSION_TOKEN);
 
-    res.status(200).json({ msg: "Logout successfullly" });
     res.status(200).json({ msg: "Logout successfullly" });
   } catch (error) {
     console.log(error);
