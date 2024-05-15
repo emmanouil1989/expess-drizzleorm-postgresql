@@ -86,7 +86,6 @@ export const login = async (
       domain: DOMAIN,
       path: "/",
       expires: expirationTime,
-      expires: expirationTime,
       httpOnly: true,
     });
     res.status(200).json({
