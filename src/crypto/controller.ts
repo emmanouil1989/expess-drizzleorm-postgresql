@@ -36,8 +36,8 @@ export const createCryptoController = async (
 
 export const getAllCryptosController = async (req: Request, res: Response) => {
   try {
-    const allCyrptos = await getAllCryptos();
-    res.json({ allCyrptos });
+    const allCryptos = await getAllCryptos();
+    res.json({ allCryptos });
   } catch (error: any) {
     console.log(error);
 
