@@ -71,7 +71,6 @@ export const login = async (
     if (expectedHash !== user.password) {
       return res
         .status(403)
-        .json({ msg: "Unauthorized" })
         .json({ error: "There is a problem with email or password" });
     }
 
